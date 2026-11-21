@@ -71,6 +71,17 @@ public class BST {
      * o elemento não esteja presente na árvore.
      */
     public Node search(int element) {
+        Node aux = this.root;
+        
+        while (aux != null) {
+            if (aux.value == element) return aux;
+            if (element < aux.value) {
+                aux = aux.left;
+            } else {
+                aux = aux.right;
+            }
+        }
+        
         return null;
     }
     
@@ -102,8 +113,6 @@ public class BST {
         return -1;
     }
 
-    
-
     /**
      * @return o tamanho da árvore.
      */
@@ -115,7 +124,6 @@ public class BST {
 
 
 class Node {
-    
     int value;
     Node left;
     Node right;
@@ -124,5 +132,4 @@ class Node {
     Node(int v) {
         this.value = v;
     }
-    
 }
