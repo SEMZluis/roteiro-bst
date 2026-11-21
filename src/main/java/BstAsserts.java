@@ -70,6 +70,52 @@ public class BstAsserts {
         assert bst.search(20).value == 20;
         assert bst.search(5).value == 5;
     }
+    
+    public void testMin() {
+        BST bst = new BST();
+        assert bst.isEmpty();
+        assert bst.size() == 0;
+        
+        assert bst.min() == null;
+
+        bst.add(10);
+        assert bst.min().value == 10;
+
+        bst.add(20);
+        assert bst.min().value == 10;
+
+        bst.add(5);
+        assert bst.min().value == 5;
+
+        bst.add(1);
+        assert bst.min().value == 1;
+
+        bst.add(3);
+        assert bst.min().value == 1;
+    }
+
+    public void testMax() {
+        BST bst = new BST();
+        assert bst.isEmpty();
+        assert bst.size() == 0;
+
+        assert bst.max() == null;
+
+        bst.add(10);
+        assert bst.max().value == 10;
+
+        bst.add(5);
+        assert bst.max().value == 10;
+
+        bst.add(20);
+        assert bst.max().value == 20;
+
+        bst.add(30);
+        assert bst.max().value == 30;
+
+        bst.add(25);
+        assert bst.max().value == 30;
+    }
 
     public static void main(String[] args) {
         BstAsserts t = new BstAsserts();
@@ -77,6 +123,8 @@ public class BstAsserts {
         t.testHeight();
         t.testAdd();
         t.testSearch();
+        t.testMin();
+        t.testMax();
         System.out.println("Todos os testes passaram.");
     }
 

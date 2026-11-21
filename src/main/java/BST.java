@@ -62,7 +62,6 @@ public class BST {
 
     }
     
-    
     /**
      * Busca o nó cujo valor é igual ao passado como parâmetro. Essa é a implementação 
      * iterativa clássica da busca binária em uma árvore binária de pesquisa.
@@ -84,7 +83,6 @@ public class BST {
         
         return null;
     }
-    
     
     /**
      * Retorna a altura da árvore.
@@ -119,6 +117,38 @@ public class BST {
     public int size() {
         return this.size;
     }
+
+    /**
+     * Implementa recursivamente a função que busca o menor valor da árvore.
+     * @return o menor valor armazenado.
+     */
+    public Node min() {
+        if (isEmpty()) return null;
+        return min(this.root);
+    }
+
+    private Node min(Node current) {
+        if (current == null) return null;
+        if (current.left != null) return min(current);
+        return current;
+    }   
+
+    /**
+     * Implementa recursivamente a função que busca o menor valor da árvore
+     * @return o maior valor armazenado.
+     */
+    public Node max() {
+        if (isEmpty()) return null;
+        return max(this.root);
+    }
+
+    private Node max(Node current) {
+        if (current == null) return null;
+        if (current.right != null) return max(current.right);
+        return current;
+    }
+
+   
     
 }
 
