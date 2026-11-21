@@ -14,37 +14,15 @@ public class BST {
      * @param element o valor a ser adicionado na árvore.
      */
     public void add(int element) {
-        this.size += 1;
-        if (isEmpty())
-            this.root = new Node(element);
-        else {
-            
-            Node aux = this.root;
-            
-            while (aux != null) {
-                
-                if (element < aux.value) {
-                    if (aux.left == null) { 
-                        Node newNode = new Node(element);
-                        aux.left = newNode;
-                        newNode.parent = aux;
-                        return;
-                    }
-                    
-                    aux = aux.left;
-                } else {
-                    if (aux.right == null) { 
-                        Node newNode = new Node(element);
-                        aux.right = newNode;
-                        newNode.parent = aux;
-                        return;
-                    }
-                    
-                    aux = aux.right;
-                }
-            }
-        }
         
+    }
+
+    /**
+     * Implementação da remoção de um elemento de uma árvore binária de pesquisa.
+     * @param element o valor a ser removido da árvore.
+     */
+    public void remove(int element) {
+
     }
     
     
