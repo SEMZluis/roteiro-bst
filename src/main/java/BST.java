@@ -14,7 +14,44 @@ public class BST {
      * @param element o valor a ser adicionado na árvore.
      */
     public void add(int element) {
+        // Crio o meu nó logo de cara (considerando que não haverá elementos repetidos na árvore)
+        Node newNode = new Node(element);
+        this.size++;
+
+        // Tenho que verificar se já tem algum elemento na árvore. Se não tiver, o que tá chegando vai ser minha raiz.
         
+        if (isEmpty()) {
+            this.root = newNode;
+        } else {
+
+            // Como não tá vazio, preciso procurar um canto pra botar esse número.
+            // Vou percorrer minha árvore.
+            Node aux = this.root;
+
+            while (aux != null) {
+            
+                // Vejo primeiro se o número deve estar a esquerda do meu nó. Se não tiver ninguém na esquerda, já boto ele lá.
+                if (element < aux.value) {
+                    if (aux.left == null) {
+                        aux.left = newNode;
+                        newNode.parent = aux;
+                        return;
+                    }
+
+                    // Tendo esquerda, vou ver se meu número é maior ou menor do que este nó.
+                    aux = aux.left;
+                } else {
+                    if (aux.right == null) {
+                        aux.right = newNode;
+                        newNode.parent = aux;
+                        return;
+                    }
+                    
+                    aux = aux.right;
+                }
+            }
+
+        }
     }
 
     /**
@@ -42,9 +79,17 @@ public class BST {
      * Retorna a altura da árvore.
      */
     public int height() {
-        return -1;
+        return height(this.root);
     }
 
+    private int height(Node current) {
+        if (current == null) return -1;
+        int esq = height(current.left) + 1;
+        int dir = height(current.right) + 1;
+        
+        if (esq > dir) return esq;
+        return dir;
+    }
 
     public boolean equals(BST outra) {
         return false;
