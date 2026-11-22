@@ -84,12 +84,14 @@ public class BST {
             } else {
                 Node parent = toRemove.parent;
 
-                if (toRemove.hasLeftChild()) {
-                    parent.left = toRemove.left;
-                    toRemove.left.parent = parent;
+                if (toRemove.value < parent.value) {
+                    if (toRemove.hasLeftChild()) parent.left = toRemove.left;
+                    else parent.left = toRemove.right;
+                    parent.left.parent = parent;
                 } else {
-                    parent.right = toRemove.right;
-                    toRemove.right.parent = parent;
+                    if (toRemove.hasLeftChild()) parent.right = toRemove.left;
+                    else parent.right = toRemove.right;
+                    parent.right.parent = parent;
                 }
             }
         } else {
