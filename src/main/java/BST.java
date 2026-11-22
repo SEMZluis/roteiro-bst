@@ -54,12 +54,49 @@ public class BST {
         }
     }
 
+
+
     /**
      * Implementação da remoção de um elemento de uma árvore binária de pesquisa.
      * @param element o valor a ser removido da árvore.
      */
     public void remove(int element) {
+        Node node = search(element);
+        if (node != null) remove(node);
+    }
 
+
+    private void remove(Node toRemove) {
+        if (toRemove == null) return;
+
+        if (toRemove.isLeaf()) {
+            if (this.root == toRemove) this.root = null;
+            else {
+                Node parent = toRemove.parent;
+                if (toRemove.value < parent.value) parent.left = null;
+                else parent.right = null;
+            }
+        } else if (toRemove.hasOnlyOneChild()) {
+            if (toRemove == this.root) {
+                if (toRemove.hasLeftChild()) this.root = toRemove.left;
+                else this.root = toRemove.right;
+                this.root.parent = null;
+            } else {
+                Node parent = toRemove.parent;
+
+                if (toRemove.hasLeftChild()) {
+                    parent.left = toRemove.left;
+                    toRemove.left.parent = parent;
+                } else {
+                    parent.right = toRemove.right;
+                    toRemove.right.parent = parent;
+                }
+            }
+        } else {
+            Node sucessor = sucessor(toRemove);
+            toRemove.value = sucessor.value;
+            remove(sucessor);
+        }
     }
     
     /**
@@ -128,9 +165,8 @@ public class BST {
     }
 
     private Node min(Node current) {
-        if (current == null) return null;
-        if (current.left != null) return min(current);
-        return current;
+        if (current.left == null) return current;
+        return min(current.left);
     }   
 
     /**
@@ -143,12 +179,46 @@ public class BST {
     }
 
     private Node max(Node current) {
-        if (current == null) return null;
-        if (current.right != null) return max(current.right);
-        return current;
+        if (current.right == null) return current;
+        return max(current.right);
     }
 
-   
+    /**
+     * Busca o menor valor imediatamente maior ao elemento passado.
+     * @param element elemento a ser buscado na árvore e comparado em seguida.
+     * @return o sucessor do elemento se houver e nulo se não.
+     */
+    public Node sucessor(Node node) {
+        if (isEmpty() || node == null) return null;
+
+        if (node.right != null) {
+            return min(node.right);
+        } else {
+            Node aux = node.parent;
+
+            while (aux.parent != null && aux.value < node.value) {
+                aux = aux.parent;
+            }
+
+            return aux;
+        }
+    }
+
+    public Node predecessor(Node node) {
+        if (isEmpty() || node == null) return null;
+
+        if (node.left != null) {
+            return max(node.left);
+        } else {
+            Node aux = node.parent;
+
+            while (aux != null && aux.value > node.value) {
+                aux = aux.parent;
+            }
+
+            return aux;
+        }
+    }
     
 }
 
@@ -159,7 +229,24 @@ class Node {
     Node right;
     Node parent;
     
-    Node(int v) {
+    public Node(int v) {
         this.value = v;
     }
+
+    public boolean hasLeftChild() {
+        return this.left != null;
+    }
+
+    public boolean hasRightChild() {
+        return this.right != null;
+    }
+
+    public boolean isLeaf() {
+        return !hasLeftChild() && !hasRightChild();
+    }
+
+    public boolean hasOnlyOneChild() {
+        return (hasLeftChild() && !hasRightChild()) || (!hasLeftChild() && hasRightChild());
+    }
+
 }
